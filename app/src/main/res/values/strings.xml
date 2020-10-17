@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">AppFitness</string>
+    <string name="app_name"><b>AppFitness</b></string>
     <string name="name">Nombre</string>
     <string name="password">Contraseña</string>
-    <string name="default_item">defaultItem</string>
+    <string name="default_text">Provisional</string>
+    <string name="km">km</string>
+    <string name="next">Siguiente</string>
+    <string name="subtitle"><i>" XX veces has entrado en AppFitness. ¡Buen trabajo!"</i></string>
 </resources>

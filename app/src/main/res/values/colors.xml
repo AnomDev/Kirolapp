@@ -2,7 +2,9 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#11257e</color>
-    <color name="colorAccent">#118120</color>
+    <color name="colorAccent">#30799c</color>
     <color name="colorHint">#6d6969</color>
-    <color name="fondo">#a9d8e6</color>
+    <color name="fondoLayout">#e2f8ff</color>
+    <color name="fondoRecycler">#e5eaed</color>
+
 </resources>
