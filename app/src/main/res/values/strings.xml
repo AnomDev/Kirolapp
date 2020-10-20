@@ -1,9 +1,19 @@
 <resources>
-    <string name="app_name"><b>AppFitness</b></string>
+
+    <!-- Many places -->
+    <string name="app_name"><b>Kirolapp</b></string>
+    <string name="default_text">Texto provisional</string>
+    <string name="next">Siguiente</string>
+
+
+    <!-- MainActivity (Login) -->
     <string name="name">Nombre</string>
     <string name="password">Contraseña</string>
-    <string name="default_text">Provisional</string>
+    <string name="subtitle"><i>" XX veces has entrado en Kirolapp. ¡Oso ondo!"</i></string>
+
+    <!-- ListaActivity -->
     <string name="km">km</string>
-    <string name="next">Siguiente</string>
-    <string name="subtitle"><i>" XX veces has entrado en AppFitness. ¡Buen trabajo!"</i></string>
+    <string name="exit">Salir</string>
+    <string name="add_new_workout">Nuevo ejercicio</string>
+
 </resources>

@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.serbladev.appfitness.databinding.ActivityListaBinding;
 
@@ -37,7 +39,7 @@ public class ListaActivity extends AppCompatActivity {
         String nombre = elintentquemetraigodelaotraactividad.getStringExtra(MainActivity.CLAVE_NOMBRE);
 
         //Aquí estamos pintando los datos del string obtenido del intent en el textView.
-        vistas.tvEjercicio.setText("Ejercicio de " + nombre);
+        vistas.tvTitleListActivity.setText("Ejercicio de " + nombre);
         //Gracias al Binding de arriba, nos ahorramos tener que poner "TextView tvEjercicio = findViewById(R.id.tvEjercicio).setText("Ejercicio de "+nombre);"
 
         //Aquí creamos el ArrayList de datos de tipo Ejercicio que vamos a utilizar para rellenar el RecyclerView
@@ -55,21 +57,23 @@ public class ListaActivity extends AppCompatActivity {
         datos.add(new Ejercicio("8", "23-01-1991", "Corriendo", 12.2, false));
         datos.add(new Ejercicio("9", "04-02-1991", "Andando", 25.2, true));
 
-
-
-
          /* //Aquí creamos el adaptador para el ArrayList y le metemos los datos generados arriba además de utilizar un tipo de adaptador propio de android para pintar en listas
         //Podríamos definir el adaptador como "el señor pintor" que pinta los datos que tú le das y en la forma que tu le digas.
         ArrayAdapter<String>  adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datos);
         vistas.lvLista.setAdapter(adaptador);*/
 
 
-        RecyclerAdapter ra = new RecyclerAdapter(datos);
-        vistas.rvLista.setAdapter(ra);
+        RecyclerAdapter recyadapter = new RecyclerAdapter(datos);
+        vistas.rvWorkoutList.setAdapter(recyadapter);
 
-        LinearLayoutManager linla = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        vistas.rvLista.setLayoutManager(linla);
-
+        LinearLayoutManager linlaymanager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        vistas.rvWorkoutList.setLayoutManager(linlaymanager);
 
     }
+
+    public void onSalir(View view) {
+        Intent i = new Intent(ListaActivity.this, MainActivity.class);
+        startActivity(i);
+    }
+
 }

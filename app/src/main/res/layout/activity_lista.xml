@@ -7,7 +7,7 @@
     tools:context=".ListaActivity">
 
     <TextView
-        android:id="@+id/tvEjercicio"
+        android:id="@+id/tvTitleListActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvLista"
+        android:id="@+id/rvWorkoutList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -32,18 +32,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEjercicio" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleListActivity" />
 
     <Button
-        android:id="@+id/btSalir"
+        android:id="@+id/btAddWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Button"
+        android:text="@string/add_new_workout"
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvLista" />
+        app:layout_constraintTop_toBottomOf="@+id/rvWorkoutList" />
+
+    <Button
+        android:id="@+id/btExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/exit"
+        android:backgroundTint="@color/colorAccent"
+        android:onClick="onSalir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btAddWorkout" />
 
     <LinearLayout
         android:layout_width="match_parent"

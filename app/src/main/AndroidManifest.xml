@@ -10,16 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ListaActivity">
-        </activity>
-
-        <activity android:name=".MainActivity">
+        <!-- Aquí he cambiado que la primera pantalla que se vea sea el MainActivity para que en su lugar sea la SplashScreen-->
+        <activity
+            android:name=".SplashScreenActivity"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".AltaActivity" />
+        <activity android:name=".ListaActivity" />
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
