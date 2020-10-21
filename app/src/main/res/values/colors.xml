@@ -5,6 +5,8 @@
     <color name="colorAccent">#30799c</color>
     <color name="colorHint">#6d6969</color>
     <color name="fondoLayout">#e2f8ff</color>
-    <color name="fondoRecycler">#e5eaed</color>
+    <color name="fondoRecyclerItem">#a8d6ec</color>
+    <color name="fondoRecycler">#dfdfdf</color>
+
 
 </resources>

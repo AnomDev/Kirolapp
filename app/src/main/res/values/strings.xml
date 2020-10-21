@@ -15,5 +15,11 @@
     <string name="km">km</string>
     <string name="exit">Salir</string>
     <string name="add_new_workout">Nuevo ejercicio</string>
+    <string name="new_workout_title">Nuevo ejercicio</string>
+    <string name="workout_type">Tipo de actividad</string>
+    <string name="is_night_workout">¿Horario nocturno?</string>
+    <string name="date">Fecha (dd/mm/aaaa)</string>
+    <string name="distance">Distancia</string>
+    <string name="save">Guardar</string>
 
 </resources>

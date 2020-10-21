@@ -9,8 +9,9 @@
             <solid android:color="#FFFFFF" />
             <stroke android:width="2dip" android:color="@color/colorPrimaryDark" />-->
 
-            <solid android:color="#808080"/>
-            <stroke android:width="3dp" android:color="#B1BCBE" />
+            <solid android:color="@color/fondoRecyclerItem"/>
+
+            <stroke android:width="3dp" android:color="@color/colorAccent" />
             <corners android:radius="10dp"/>
             <padding android:left="0dp" android:top="0dp"
                      android:right="0dp" android:bottom="0dp" />

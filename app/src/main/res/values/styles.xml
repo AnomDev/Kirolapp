@@ -15,11 +15,15 @@
     </style>
 
     <!-- Aquí estoy cambiando el color y tamaño de los elementos Hint de los TextInputLayout-->
-    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+   <!-- <style name="TextLabel" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>-->
 
+    <!-- Aquí estoy cambiando el color y tamaño de los Switch tipo MaterialSwitch-->
+    <style name="MaterialSwitch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="thumbTint">@color/colorAccent</item>
+    </style>
 
 
 </resources>

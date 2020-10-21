@@ -70,7 +70,13 @@ public class ListaActivity extends AppCompatActivity {
         vistas.rvWorkoutList.setLayoutManager(linlaymanager);
 
     }
+    //Con este método nos vamos a AltaActivity
+    public void onEntrarAlta(View view) {
+        Intent i = new Intent(ListaActivity.this, AltaActivity.class);
+        startActivity(i);
+    }
 
+    //Con este método nos volvemos a MainActivity(Login)
     public void onSalir(View view) {
         Intent i = new Intent(ListaActivity.this, MainActivity.class);
         startActivity(i);
