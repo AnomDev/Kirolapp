@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondoLayout"
-    tools:context=".AltaActivity">
+    tools:context=".actividades.AltaActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -24,8 +24,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilDate"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="@color/colorPrimaryDark"
-        app:hintTextColor="@color/colorPrimary"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
@@ -33,6 +31,8 @@
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/colorPrimaryDark"
+        app:hintTextColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -49,8 +49,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilDistance"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="@color/colorPrimaryDark"
-        app:hintTextColor="@color/colorPrimary"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
@@ -58,6 +56,8 @@
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/colorPrimaryDark"
+        app:hintTextColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilDate">
@@ -82,14 +82,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilDistance" />
 
-        <Spinner
-            android:id="@+id/spnnWorkoutTypes"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:layout_marginStart="32dp"
-            app:layout_constraintStart_toEndOf="@+id/tvWorkoutType"
-            app:layout_constraintTop_toBottomOf="@+id/tilDistance" />
+    <Spinner
+        android:id="@+id/spWorkoutTypes"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWorkoutType"
+        app:layout_constraintStart_toEndOf="@+id/tvWorkoutType"
+        app:layout_constraintTop_toTopOf="@+id/tvWorkoutType" />
 
     <TextView
         android:id="@+id/tvNightWorkout"
@@ -101,30 +101,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWorkoutType" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/swNightWorkout"
-            style="@style/MaterialSwitch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_weight="3"
-            android:checked="true"
-            android:enabled="true"
-            app:layout_constraintBaseline_toBaselineOf="@id/tvNightWorkout"
-            app:layout_constraintStart_toEndOf="@+id/tvNightWorkout"
-            app:layout_constraintTop_toBottomOf="@+id/spnnWorkoutTypes" />
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swNightWorkout"
+        style="@style/MaterialSwitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_weight="3"
+        android:checked="true"
+        android:enabled="true"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvNightWorkout"
+        app:layout_constraintStart_toEndOf="@+id/tvNightWorkout"
+        app:layout_constraintTop_toBottomOf="@+id/spWorkoutTypes" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swNightWorkout"
-        android:layout_marginTop="64dp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/swNightWorkout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

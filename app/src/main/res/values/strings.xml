@@ -9,7 +9,7 @@
     <!-- MainActivity (Login) -->
     <string name="name">Nombre</string>
     <string name="password">Contraseña</string>
-    <string name="subtitle"><i>" XX veces has entrado en Kirolapp. ¡Oso ondo!"</i></string>
+    <string name="subtitle">\" XX veces has entrado en Kirolapp. ¡Oso ondo!\"</string>
 
     <!-- ListaActivity -->
     <string name="km">km</string>

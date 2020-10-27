@@ -1,6 +1,8 @@
-package com.serbladev.appfitness;
+package com.serbladev.appfitness.pojo;
 
-public class Ejercicio {
+import java.io.Serializable;
+
+public class Ejercicio implements Serializable {
 
     //Los atributos siempre privados, ergo han de tener hgettes y setter
     private String nombre;

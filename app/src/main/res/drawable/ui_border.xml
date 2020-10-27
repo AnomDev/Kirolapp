@@ -4,8 +4,8 @@
             <solid android:color="@color/fondoRecycler"/>
             <stroke android:width="3dp" android:color="@color/colorAccent" />
             <corners android:radius="10dp"/>
-            <padding android:left="0dp" android:top="0dp"
-                     android:right="0dp" android:bottom="0dp" />
+            <padding android:left="0dp" android:top="3dp"
+                     android:right="0dp" android:bottom="3dp" />
 
 
 </shape>

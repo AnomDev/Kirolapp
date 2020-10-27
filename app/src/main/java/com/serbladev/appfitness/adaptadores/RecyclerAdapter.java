@@ -1,4 +1,4 @@
-package com.serbladev.appfitness;
+package com.serbladev.appfitness.adaptadores;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.serbladev.appfitness.R;
+import com.serbladev.appfitness.pojo.Ejercicio;
 
 import java.util.ArrayList;
 

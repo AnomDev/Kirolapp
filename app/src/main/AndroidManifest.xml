@@ -20,9 +20,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AltaActivity" />
-        <activity android:name=".ListaActivity" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".actividades.AltaActivity" />
+        <activity android:name=".actividades.ListaActivity" />
+        <activity android:name=".actividades.MainActivity"/>
     </application>
 
 </manifest>
