@@ -4,7 +4,8 @@
     <string name="app_name"><b>Kirolapp</b></string>
     <string name="default_text">Texto provisional</string>
     <string name="next">Siguiente</string>
-
+    <string name="cancel">❌</string>
+    <string name="confirm">✔️</string>
 
     <!-- MainActivity (Login) -->
     <string name="name">Nombre</string>
@@ -13,7 +14,7 @@
 
     <!-- ListaActivity -->
     <string name="km">km</string>
-    <string name="exit">Salir</string>
+    <string name="logout">Cerrar sesión</string>
     <string name="add_new_workout">Nuevo ejercicio</string>
     <string name="new_workout_title">Nuevo ejercicio</string>
     <string name="workout_type">Tipo de actividad</string>
@@ -21,5 +22,9 @@
     <string name="date">Fecha (dd/mm/aaaa)</string>
     <string name="distance">Distancia</string>
     <string name="save">Guardar</string>
+
+    <!-- AlertDialogs -->
+    <string name="ad_closeapp"> ¿Estás seguro que deseas salir de Kirolapp?</string>
+    <string name="ad_exitwithoutsaving"> Si sales los datos no se guardarán. \n¿Deseas continuar?</string>
 
 </resources>

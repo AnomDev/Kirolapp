@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondoLayout"
-    tools:context=".actividades.AltaActivity">
+    tools:copaintntext=".actividades.AltaActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/date"
-            android:inputType="text"
+            android:inputType="date"
             android:maxLength="20" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
             android:hint="@string/distance"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             android:maxLength="20" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +84,7 @@
 
     <Spinner
         android:id="@+id/spWorkoutTypes"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvWorkoutType"

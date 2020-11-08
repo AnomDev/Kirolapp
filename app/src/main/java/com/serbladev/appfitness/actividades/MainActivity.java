@@ -37,30 +37,9 @@ public class MainActivity extends AppCompatActivity {
         try {
              pas = Integer.parseInt(etPassword.getText().toString()); //Aquí pasamos de String a entero.
         } catch (NumberFormatException eee) {
-            Toast.makeText(this, "NO PONGAS LETRAS COÑO ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sólo se permite la introducción de números", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
-  /*      BufferedReader dd = null;
-        try {
-             dd = new BufferedReader(new FileReader("texto.txt"));
-        } catch (FileNotFoundException e) {
-            Toast.makeText(this, "NO EXNEUNTRO EL FICHERO", Toast.LENGTH_SHORT).show();
-            return;
-        } finally{
-            try {
-                dd.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }*/
-
-
-
-
-
 
 
         //Si coinciden con los requisitos, pasamos a la segunda actividad
@@ -70,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             // Hay que imaginar un intent como un burro que nos lleva y nos trae, y sus putExtra son las alforjas adicionales que puede llevar
             // con datos e información entre pantallas.
             Intent i = new Intent(MainActivity.this, ListaActivity.class);
-            i.putExtra("nombredelpollo", nom);
+            i.putExtra("nombredelusuario", nom);
 
             //Aquí estaría arrancando el intent y pasándonos a la siguiente actividad junto con la información asociada en sus putExtra
             startActivity(i);

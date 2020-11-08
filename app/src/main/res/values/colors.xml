@@ -2,6 +2,8 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#11257e</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparent">#00000000</color>
     <color name="colorAccent">#30799c</color>
     <color name="colorHint">#6d6969</color>
     <color name="fondoLayout">#e2f8ff</color>
