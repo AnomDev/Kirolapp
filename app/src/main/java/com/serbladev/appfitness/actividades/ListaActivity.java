@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.serbladev.appfitness.R;
-import com.serbladev.appfitness.adaptadores.RecyclerAdapter;
+import com.serbladev.appfitness.adaptadores.MiRecyclerAdapterParaElRecyclerViewDeEjercicios;
 import com.serbladev.appfitness.databinding.ActivityListaBinding;
 import com.serbladev.appfitness.modelo.EjercicioSQLITE;
 import com.serbladev.appfitness.pojo.Ejercicio;
@@ -28,8 +30,8 @@ public class ListaActivity extends AppCompatActivity {
     String nombre = "";
 
     //Aquí creamos el ArrayList de datos de tipo Ejercicio que vamos a utilizar para rellenar el RecyclerView
-    ArrayList<Ejercicio> datos = new ArrayList<>();
-    RecyclerAdapter recyadapter;
+    ArrayList<Ejercicio> arrayListDeEjercicios = new ArrayList<>();
+    MiRecyclerAdapterParaElRecyclerViewDeEjercicios miAdaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,9 @@ public class ListaActivity extends AppCompatActivity {
 
 
         EjercicioSQLITE bbdd = new EjercicioSQLITE(this,"BaseDatosEjercicios", null, 1);
-        datos  = bbdd.leerEjercicios();
+
+        //Aquí estamos obteniendo todos los elementos de un ejercicio que ya está creado gracias al método leerEjercicios de la clase EjerciciosSQLITE
+        arrayListDeEjercicios = bbdd.leerEjercicios();
 
 
         //Aquí estamos creando un nuevo Ejercicio con los parámetros que pide el constructor de Ejercicio y que será un item del RecyclerView
@@ -71,9 +75,10 @@ public class ListaActivity extends AppCompatActivity {
         ArrayAdapter<String>  adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datos);
         vistas.lvLista.setAdapter(adaptador);*/
 
-
-        recyadapter = new RecyclerAdapter(datos);
-        vistas.rvWorkoutList.setAdapter(recyadapter);
+        // construyo MI ADAPTADOR pasandole el array de ejercicios qye ha de pintar
+        miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios);
+        // y finalmente le pongo el acdaptador al RecyclerView
+        vistas.rvWorkoutList.setAdapter(miAdaptador);
 
         LinearLayoutManager linlaymanager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         vistas.rvWorkoutList.setLayoutManager(linlaymanager);
@@ -126,15 +131,39 @@ public class ListaActivity extends AppCompatActivity {
               //  (())   Ejercicio ejercicioCreadoDesdeJson = gson.fromJson(elejercicioENJSON, Ejercicio.class);
             //    datos.add(ejercicioCreadoDesdeJson);
                 EjercicioSQLITE bbdd = new EjercicioSQLITE(this,"BaseDatosEjercicios", null, 1);
-                datos  = bbdd.leerEjercicios();
+                arrayListDeEjercicios = bbdd.leerEjercicios();
                 //recyadapter.notifyDataSetChanged(); //Aqui avisamos al adapter que tiene datos nuevos y que refresque el recyclerView.
-                recyadapter = new RecyclerAdapter(datos);
-                vistas.rvWorkoutList.setAdapter(recyadapter);
+                miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios);
+                vistas.rvWorkoutList.setAdapter(miAdaptador);
             }
         }
         // No es necesario un "else". Si el "if" no se cumple, simplemente lo ignora y sigue su camino.
 
     }
+
+    // onCreateOptionsMenu se invoca cuando se construye la actividad y se crea el menu. @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+       // Aqui se “infla” el layoput qye se desee en el menu de esta actividad
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    // onOptionsItemSelected se invoca cuando se selecciona alguna de las opciones del menu // recibe como parametro un objeto MenuItem (el pulsado)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Con el objeto MenuItem y su metodo getItemId() podemos saber el id del view del menu pulsa
+        int id = item.getItemId();
+        switch (id) {
+            case (R.id.opcion_borrar):
+                Toast.makeText(getApplicationContext(), "Pulsado borrar", Toast.LENGTH_SHORT).show();
+                break;
+            case (R.id.opcion_preferencias):
+                Toast.makeText(getApplicationContext(), "Pulsado Prefeencias ", Toast.LENGTH_SHORT).show() ;
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onBackPressed() {
