@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Se separan las preferencias por categorias, con PreferenceCategory -->
+    <PreferenceCategory android:title="Titulo categoria 1">
+        <!-- Con esto se añade un ChekBox -->
+        <CheckBoxPreference
+            android:key="opcion1"
+            android:summary="Esta es la descripcion de la preferencia que aparece debajo de su titulo"
+            android:title="Preferencia de checkbox, haz check:" />
+        <!-- Con esto se añade un texto editable -->
+        <EditTextPreference
+            android:dialogTitle="Introduce valor"
+            android:key="opcion2"
+            android:title="Preferencia de texto, pincha aqui y escribe:" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Categoria 2">
+        <!-- Con esto se añade una lista seleccionable
+        Para ello debe existir en Recursos un XML con array de strings,
+        para las entries y los entryValues-->
+        <ListPreference
+            android:dialogTitle="Indicar Planeta"
+            android:entries="@array/listaPlanetas"
+            android:entryValues="@array/idPlanetas"
+            android:key="opcion3"
+            android:summary="Esta es la descripcion de la preferencia que aparece debajo de su titulo"
+            android:title="Preferencia de lista, elige un elemento" />
+        <!-- Con esto se añade una lista multiseleccionable
+        Para ello debe existir en Recursos un XML con array de strings,
+        para las entries y los entryValues-->
+        <MultiSelectListPreference
+            android:dialogTitle="Indicar Pais"
+            android:entries="@array/paises"
+            android:entryValues="@array/codpaises"
+            android:key="opcion4"
+            android:summary="Esta es la descripcion de la preferencia que aparece debajo de su titulo"
+            android:title="Preferencia de multilista, elige varios elementos:" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

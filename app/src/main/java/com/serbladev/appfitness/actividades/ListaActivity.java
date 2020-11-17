@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +22,7 @@ import com.serbladev.appfitness.adaptadores.MiRecyclerAdapterParaElRecyclerViewD
 import com.serbladev.appfitness.databinding.ActivityListaBinding;
 import com.serbladev.appfitness.modelo.EjercicioSQLITE;
 import com.serbladev.appfitness.pojo.Ejercicio;
+import com.serbladev.appfitness.utils.MisPreferencias;
 
 import java.util.ArrayList;
 
@@ -28,29 +32,32 @@ public class ListaActivity extends AppCompatActivity {
     ActivityListaBinding vistas;
     DividerItemDecoration itemDecor;
     String nombre = "";
-
+    EjercicioSQLITE bbdd;
     //Aquí creamos el ArrayList de datos de tipo Ejercicio que vamos a utilizar para rellenar el RecyclerView
     ArrayList<Ejercicio> arrayListDeEjercicios = new ArrayList<>();
     MiRecyclerAdapterParaElRecyclerViewDeEjercicios miAdaptador;
+    //Para poder usar el contexto de mi ListaActivity fuera de ella usamos esto<:
+    Activity yomismo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        yomismo = this;
 
         //Con esto construimos el objeto "vistas".
         vistas = ActivityListaBinding.inflate(getLayoutInflater());
         setContentView(vistas.getRoot());
 
-        //Aquí estamos cogiendo el intent creado en MainActivity con el nombre y lo estamos trayendo a ListaActivity
+        // Aquí estamos cogiendo el intent creado en MainActivity con el nombre y lo estamos trayendo a ListaActivity
         Intent elintentquemetraigodelaotraactividad = getIntent();
         nombre = elintentquemetraigodelaotraactividad.getStringExtra("nombredelusuario");
 
-        //Aquí estamos pintando los datos del string obtenido del intent en el textView.
+        // Aquí estamos pintando los datos del string obtenido del intent en el textView.
         vistas.tvTitleListActivity.setText("Ejercicio de " + nombre);
         //Gracias al Binding de arriba, nos ahorramos tener que poner "TextView tvEjercicio = findViewById(R.id.tvEjercicio).setText("Ejercicio de "+nombre);"
 
 
-        EjercicioSQLITE bbdd = new EjercicioSQLITE(this,"BaseDatosEjercicios", null, 1);
+         bbdd = new EjercicioSQLITE(this,"BaseDatosEjercicios", null, 1);
 
         //Aquí estamos obteniendo todos los elementos de un ejercicio que ya está creado gracias al método leerEjercicios de la clase EjerciciosSQLITE
         arrayListDeEjercicios = bbdd.leerEjercicios();
@@ -75,10 +82,18 @@ public class ListaActivity extends AppCompatActivity {
         ArrayAdapter<String>  adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datos);
         vistas.lvLista.setAdapter(adaptador);*/
 
+
+        // Aquí leemos las preferencias que tenemos guardadas al haber cerrado la app
+        // Podemos evitar guardarlo en una variable porque el método leerPreferencias lo hemos hecho static.
+        int itemSeleccionadaLeidaDePreferencias =MisPreferencias.leerPreferenciasDeLaAplicacion(yomismo);
+
         // construyo MI ADAPTADOR pasandole el array de ejercicios qye ha de pintar
         miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios);
-        // y finalmente le pongo el acdaptador al RecyclerView
+        // le digo al adaptador qué fila debe estar seleccionada (si se guardo en preferencias)
+        miAdaptador.setItemSeleccionado(itemSeleccionadaLeidaDePreferencias);
+        // y finalmente le pongo el adaptador al RecyclerView
         vistas.rvWorkoutList.setAdapter(miAdaptador);
+
 
         LinearLayoutManager linlaymanager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         vistas.rvWorkoutList.setLayoutManager(linlaymanager);
@@ -141,6 +156,7 @@ public class ListaActivity extends AppCompatActivity {
 
     }
 
+    //EL MENÚ LATERAL SE CREARÍA USANDO LOS DOS MÉTODOS DE: ONCREATEOPTIONSMENU Y ONOPTIONSITEMSSELECTED
     // onCreateOptionsMenu se invoca cuando se construye la actividad y se crea el menu. @Override
     public boolean onCreateOptionsMenu(Menu menu) {
        // Aqui se “infla” el layoput qye se desee en el menu de esta actividad
@@ -155,8 +171,20 @@ public class ListaActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case (R.id.opcion_borrar):
-                Toast.makeText(getApplicationContext(), "Pulsado borrar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Borrando....", Toast.LENGTH_SHORT).show();
+
+                int posicionactualelegida = miAdaptador.getItemSeleccionado();
+                //  Ejercicio  e = arrayListDeEjercicios.get(posicionactualelegida);
+
+                //El metodo remove, además de borrar el ejercicio te lo devuelve "por si lo quieres usar" (como por ejemplo para poder borrarlo tmb en la BBDD)
+                Ejercicio e  = arrayListDeEjercicios.remove(posicionactualelegida);
+                bbdd.borrarEjercicio(e);
+
+                // vuelvo a poner que no hay ningun elemento seleccionado en el listview /adapter
+                miAdaptador.setItemSeleccionado(-1);
+                miAdaptador.notifyDataSetChanged();
                 break;
+
             case (R.id.opcion_preferencias):
                 Toast.makeText(getApplicationContext(), "Pulsado Prefeencias ", Toast.LENGTH_SHORT).show() ;
                 break;
@@ -171,7 +199,10 @@ public class ListaActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.ad_closeapp).setCancelable(false).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+
+                MisPreferencias.guardarPreferenciasDeLaAplicacion(yomismo, miAdaptador.getItemSeleccionado());
                 ListaActivity.this.finish();
+
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

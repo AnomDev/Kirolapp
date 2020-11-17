@@ -27,4 +27,37 @@
     <string name="ad_closeapp"> ¿Estás seguro que deseas salir de Kirolapp?</string>
     <string name="ad_exitwithoutsaving"> Si sales los datos no se guardarán. \n¿Deseas continuar?</string>
 
+
+    <!-- -->
+        <string-array name="listaPlanetas">
+            <item>Mercurio</item>
+            <item>Venus</item>
+            <item>Tierra</item>
+            <item>Marte</item>
+            <item>Jupiter</item>
+            <item>Saturno</item>
+            <item>Urano</item>
+            <item>Neptuno</item>
+        </string-array>
+        <string-array name="idPlanetas">
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <item>4</item>
+            <item>5</item>
+            <item>6</item>
+            <item>7</item>
+            <item>8</item>
+        </string-array>
+        <string-array name="paises">
+            <item>Belgica</item>
+            <item>Holanda</item>
+            <item>Luxemburgo</item>
+        </string-array>
+        <string-array name="codpaises">
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+        </string-array>
+
 </resources>

@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 
 public class MiRecyclerAdapterParaElRecyclerViewDeEjercicios extends RecyclerView.Adapter<MiRecyclerAdapterParaElRecyclerViewDeEjercicios.MiHolder> {
-    ArrayList<Ejercicio> listaEjercicios;
-    int itemSeleccionado= -1;
-    MiRecyclerAdapterParaElRecyclerViewDeEjercicios miContextoCustomizado;
+    private ArrayList<Ejercicio> listaEjercicios;
+    private int itemSeleccionado= -1;
+    private MiRecyclerAdapterParaElRecyclerViewDeEjercicios miContextoCustomizado;
     //Aquí le pasamos el arrayList de los elementos de la lista
     public MiRecyclerAdapterParaElRecyclerViewDeEjercicios(ArrayList<Ejercicio> listaEjercicios) {
         this.listaEjercicios = listaEjercicios;
@@ -78,6 +78,17 @@ public class MiRecyclerAdapterParaElRecyclerViewDeEjercicios extends RecyclerVie
             }
         });
 
+        itemActualQueEstoyPintando.elLayoutEntero.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+
+
+
+                return false;  // Este return (si fuera true) haría que pasara al metodo OnCLick además de hacer el OnLongClick
+            }
+        });
+
 
     }
 
@@ -86,4 +97,11 @@ public class MiRecyclerAdapterParaElRecyclerViewDeEjercicios extends RecyclerVie
         return listaEjercicios.size();
     }
 
+    public int getItemSeleccionado() {
+        return itemSeleccionado;
+    }
+
+    public void setItemSeleccionado(int itemSeleccionado) {
+        this.itemSeleccionado = itemSeleccionado;
+    }
 }
