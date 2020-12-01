@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,22 +26,22 @@ import java.util.ArrayList;
 
 public class ListaActivity extends AppCompatActivity {
 
+
     //Esto coge la clase con todas las vistas de su layout. Sirve para no tener que utilizar el findViewById (igual que en Kotlin no se emplea).
     ActivityListaBinding vistas;
     DividerItemDecoration itemDecor;
     String nombre = "";
-    EjercicioSQLITE bbdd;
+   public  EjercicioSQLITE bbdd;
     //Aquí creamos el ArrayList de datos de tipo Ejercicio que vamos a utilizar para rellenar el RecyclerView
-    ArrayList<Ejercicio> arrayListDeEjercicios = new ArrayList<>();
-    MiRecyclerAdapterParaElRecyclerViewDeEjercicios miAdaptador;
+   private ArrayList<Ejercicio> arrayListDeEjercicios = new ArrayList<>();
+   private  MiRecyclerAdapterParaElRecyclerViewDeEjercicios miAdaptador;
     //Para poder usar el contexto de mi ListaActivity fuera de ella usamos esto<:
-    Activity yomismo;
+   private  Activity yomismo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         yomismo = this;
-
         //Con esto construimos el objeto "vistas".
         vistas = ActivityListaBinding.inflate(getLayoutInflater());
         setContentView(vistas.getRoot());
@@ -56,39 +54,17 @@ public class ListaActivity extends AppCompatActivity {
         vistas.tvTitleListActivity.setText("Ejercicio de " + nombre);
         //Gracias al Binding de arriba, nos ahorramos tener que poner "TextView tvEjercicio = findViewById(R.id.tvEjercicio).setText("Ejercicio de "+nombre);"
 
-
          bbdd = new EjercicioSQLITE(this,"BaseDatosEjercicios", null, 1);
 
         //Aquí estamos obteniendo todos los elementos de un ejercicio que ya está creado gracias al método leerEjercicios de la clase EjerciciosSQLITE
         arrayListDeEjercicios = bbdd.leerEjercicios();
-
-
-        //Aquí estamos creando un nuevo Ejercicio con los parámetros que pide el constructor de Ejercicio y que será un item del RecyclerView
-     /*   Ejercicio e = new Ejercicio("1", "12-10-1990", "Corriendo", 12.3, true);
-        datos.add(e);
-        */
-        //Aquí ya tenemos el Ejercicio creadod y estamos añadiendo nuevos items al RecyclerView
-       /* datos.add(new Ejercicio("2", "13-10-1990", "Corriendo", 12.3, true));
-        datos.add(new Ejercicio("3", "15-10-1990", "Andando", 17, false));
-        datos.add(new Ejercicio("4", "23-11-1990", "Bicicleta", 37.9, true));
-        datos.add(new Ejercicio("5", "31-12-1990", "Andando", 15.5, false));
-        datos.add(new Ejercicio("6", "12-01-1991", "Corriendo", 6.3, true));
-        datos.add(new Ejercicio("7", "21-01-1991", "Corriendo", 9, false));
-        datos.add(new Ejercicio("8", "23-01-1991", "Corriendo", 12.2, false));
-        datos.add(new Ejercicio("9", "04-02-1991", "Andando", 25.2, true));*/
-
-         /* //Aquí creamos el adaptador para el ArrayList y le metemos los datos generados arriba además de utilizar un tipo de adaptador propio de android para pintar en listas
-        //Podríamos definir el adaptador como "el señor pintor" que pinta los datos que tú le das y en la forma que tu le digas.
-        ArrayAdapter<String>  adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datos);
-        vistas.lvLista.setAdapter(adaptador);*/
-
 
         // Aquí leemos las preferencias que tenemos guardadas al haber cerrado la app
         // Podemos evitar guardarlo en una variable porque el método leerPreferencias lo hemos hecho static.
         int itemSeleccionadaLeidaDePreferencias =MisPreferencias.leerPreferenciasDeLaAplicacion(yomismo);
 
         // construyo MI ADAPTADOR pasandole el array de ejercicios qye ha de pintar
-        miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios);
+        miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios, this);
         // le digo al adaptador qué fila debe estar seleccionada (si se guardo en preferencias)
         miAdaptador.setItemSeleccionado(itemSeleccionadaLeidaDePreferencias);
         // y finalmente le pongo el adaptador al RecyclerView
@@ -148,7 +124,7 @@ public class ListaActivity extends AppCompatActivity {
                 EjercicioSQLITE bbdd = new EjercicioSQLITE(this,"BaseDatosEjercicios", null, 1);
                 arrayListDeEjercicios = bbdd.leerEjercicios();
                 //recyadapter.notifyDataSetChanged(); //Aqui avisamos al adapter que tiene datos nuevos y que refresque el recyclerView.
-                miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios);
+                miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios, this);
                 vistas.rvWorkoutList.setAdapter(miAdaptador);
             }
         }
@@ -171,22 +147,14 @@ public class ListaActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case (R.id.opcion_borrar):
-                Toast.makeText(getApplicationContext(), "Borrando....", Toast.LENGTH_SHORT).show();
-
-                int posicionactualelegida = miAdaptador.getItemSeleccionado();
-                //  Ejercicio  e = arrayListDeEjercicios.get(posicionactualelegida);
-
-                //El metodo remove, además de borrar el ejercicio te lo devuelve "por si lo quieres usar" (como por ejemplo para poder borrarlo tmb en la BBDD)
-                Ejercicio e  = arrayListDeEjercicios.remove(posicionactualelegida);
-                bbdd.borrarEjercicio(e);
-
-                // vuelvo a poner que no hay ningun elemento seleccionado en el listview /adapter
-                miAdaptador.setItemSeleccionado(-1);
-                miAdaptador.notifyDataSetChanged();
+                borrarPaseo();
                 break;
 
             case (R.id.opcion_preferencias):
-                Toast.makeText(getApplicationContext(), "Pulsado Prefeencias ", Toast.LENGTH_SHORT).show() ;
+
+                Intent intent = new Intent(ListaActivity.this, PreferencesActivity.class);
+                startActivity(intent);
+
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -203,6 +171,7 @@ public class ListaActivity extends AppCompatActivity {
                 MisPreferencias.guardarPreferenciasDeLaAplicacion(yomismo, miAdaptador.getItemSeleccionado());
                 ListaActivity.this.finish();
 
+
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -211,5 +180,21 @@ public class ListaActivity extends AppCompatActivity {
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+
+    public void borrarPaseo(){
+        Toast.makeText(getApplicationContext(), "Borrando....", Toast.LENGTH_SHORT).show();
+
+        int posicionactualelegida = miAdaptador.getItemSeleccionado();
+        //  Ejercicio  e = arrayListDeEjercicios.get(posicionactualelegida);
+
+        //El metodo remove, además de borrar el ejercicio te lo devuelve "por si lo quieres usar" (como por ejemplo para poder borrarlo tmb en la BBDD)
+        Ejercicio e  = arrayListDeEjercicios.remove(posicionactualelegida);
+        bbdd.borrarEjercicio(e);
+
+        // vuelvo a poner que no hay ningun elemento seleccionado en el listview /adapter
+        miAdaptador.setItemSeleccionado(-1);
+        miAdaptador.notifyDataSetChanged();
     }
 }

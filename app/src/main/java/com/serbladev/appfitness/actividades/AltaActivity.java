@@ -63,7 +63,6 @@ public class AltaActivity extends AppCompatActivity {
            //     elintentquemetraigodelalistayvoyadevolverle.putExtra("elEjercicioRecienCreado", ejercicioEnFormatoJSON); //PASO 2: Cojo el mismo intent que me he traido y le añado el objeto en forma de JSON creado para devolverlo
                 setResult( RESULT_OK, elintentquemetraigodelalistayvoyadevolverle); //PASO 3: setResult tiene un código de ID de quien devuelve el intent y su intent que devuelve.
                 finish();
-
             }
         });
 

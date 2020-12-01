@@ -8,7 +8,7 @@ public class MisPreferencias {
 
     public static int leerPreferenciasDeLaAplicacion(Activity actividad) {
         SharedPreferences prefs = actividad.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-// Si no existe el valor, se devuelve el segundo parametro
+        // Si no existe el valor, se devuelve el segundo parametro
         //String correo = prefs.getString("mail", "por_defecto @gmail.com");
         int numero = prefs.getInt("pref_itemseleccionado", -1) ;
         return numero;
@@ -21,7 +21,7 @@ public class MisPreferencias {
         SharedPreferences.Editor editor = prefs.edit();
        // editor.putString("mail", "pruebas@gmail.com");
         editor.putInt("pref_itemseleccionado", itemSeleccionado);
-        editor.commit();
+        editor.apply();
     }
 
     public void borrarPreferenciasDeLaAplicacion(Activity actividad) {
@@ -29,7 +29,7 @@ public class MisPreferencias {
         SharedPreferences.Editor editor = prefs.edit();
 // Asi eliminamos TODAS las preferencias del grupo prefs:
         editor.clear();
-        editor.commit();
+        editor.apply();
 // y así eliminamos SOLO la preferencia titulo del grupo prefs:
         editor.remove("titulo");
         editor.commit();

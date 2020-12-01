@@ -46,6 +46,10 @@ public class Ejercicio implements Serializable {
         return nocturno;
     }
 
+    public void setNocturno(boolean nocturno) {
+        this.nocturno = nocturno;
+    }
+
     public String getNombre() {
         return nombre;
     }

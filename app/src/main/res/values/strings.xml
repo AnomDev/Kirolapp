@@ -49,15 +49,5 @@
             <item>7</item>
             <item>8</item>
         </string-array>
-        <string-array name="paises">
-            <item>Belgica</item>
-            <item>Holanda</item>
-            <item>Luxemburgo</item>
-        </string-array>
-        <string-array name="codpaises">
-            <item>1</item>
-            <item>2</item>
-            <item>3</item>
-        </string-array>
 
 </resources>

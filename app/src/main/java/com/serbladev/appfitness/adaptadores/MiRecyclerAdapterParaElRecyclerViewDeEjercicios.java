@@ -1,16 +1,23 @@
 package com.serbladev.appfitness.adaptadores;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.serbladev.appfitness.R;
+import com.serbladev.appfitness.actividades.ListaActivity;
+import com.serbladev.appfitness.modelo.EjercicioSQLITE;
 import com.serbladev.appfitness.pojo.Ejercicio;
 
 import java.util.ArrayList;
@@ -20,9 +27,13 @@ public class MiRecyclerAdapterParaElRecyclerViewDeEjercicios extends RecyclerVie
     private ArrayList<Ejercicio> listaEjercicios;
     private int itemSeleccionado= -1;
     private MiRecyclerAdapterParaElRecyclerViewDeEjercicios miContextoCustomizado;
+    private ListaActivity elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV;
+
+
     //Aquí le pasamos el arrayList de los elementos de la lista
-    public MiRecyclerAdapterParaElRecyclerViewDeEjercicios(ArrayList<Ejercicio> listaEjercicios) {
+    public MiRecyclerAdapterParaElRecyclerViewDeEjercicios(ArrayList<Ejercicio> listaEjercicios, ListaActivity context) {
         this.listaEjercicios = listaEjercicios;
+        this.elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV = context;
         miContextoCustomizado = this;
 
     }
@@ -63,10 +74,11 @@ public class MiRecyclerAdapterParaElRecyclerViewDeEjercicios extends RecyclerVie
         itemActualQueEstoyPintando.tvActividad.setText(ej.getTipoActividad());
         itemActualQueEstoyPintando.tvDistancia.setText(ej.getDistancia() + "");
 
+        //Aquí vamos a cambiar el color de fondo a un item del RV en función de si lo tenemos seleccionado o no.
         if(position== itemSeleccionado){
-            itemActualQueEstoyPintando.elLayoutEntero.setBackgroundColor(Color.CYAN);
+            itemActualQueEstoyPintando.elLayoutEntero.setBackgroundColor(ContextCompat.getColor(elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV, R.color.fondoLayout));
         }else{
-            itemActualQueEstoyPintando.elLayoutEntero.setBackgroundColor(Color.GREEN);
+            itemActualQueEstoyPintando.elLayoutEntero.setBackgroundColor(Color.argb((float) 0.1,0,1,2));
         }
 
 
@@ -81,10 +93,7 @@ public class MiRecyclerAdapterParaElRecyclerViewDeEjercicios extends RecyclerVie
         itemActualQueEstoyPintando.elLayoutEntero.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-
-
-
+                menuLongClick();
                 return false;  // Este return (si fuera true) haría que pasara al metodo OnCLick además de hacer el OnLongClick
             }
         });
@@ -104,4 +113,51 @@ public class MiRecyclerAdapterParaElRecyclerViewDeEjercicios extends RecyclerVie
     public void setItemSeleccionado(int itemSeleccionado) {
         this.itemSeleccionado = itemSeleccionado;
     }
+
+    public void menuLongClick(){
+        //TODO: No está cogiendome el contexto, he intentado crearme una variable global que me defina el contexto de la actividad donde está el RV y su adapter
+        //TODO: (ListaActivity) pero pese a no darme fallo, me devuelve un null como una casa y me crashea la aplicación.
+        //TODO: También he intentado pasarle en el constructor del adapter un contexto como argumento (por algo que leí en StackOF, pero me ha valido verga :(
+
+        final CharSequence[] items = {"Cambiar a nocturno", "Borrar ejercicio", "No hacer nada"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV);
+        builder.setTitle("Elija una acción");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch(item){
+                    case 0:
+                        if(itemSeleccionado != -1){
+
+                            // cambio en el arraylist
+                            Ejercicio ejercicio = listaEjercicios.get(itemSeleccionado);
+                            ejercicio.setNocturno( ! ejercicio.isNocturno());
+                            //Del array listaEjercicios cogemos el item que tenemos marcado y lo invertimos a como estuviera (con el ! )
+                            // cambio en la BBDD
+                            elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV.bbdd.cambiarNocturno(ejercicio);
+/*                      Otra forma de hacerlo:
+                        listaEjercicios.get(itemSeleccionado).setNocturno( ! listaEjercicios.get(itemSeleccionado).isNocturno());
+                        elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV.bbdd.cambiarNocturno(listaEjercicios.get(itemSeleccionado));*/
+                        }else{
+                            Toast.makeText(elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV, "Accion no disponible hasta que no seleccione un registro", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 1:
+                        if(itemSeleccionado != -1){
+                        elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV.borrarPaseo();
+                        }else{
+                            Toast.makeText(elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV, "Accion no disponible hasta que no seleccione un registro", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+
+                }
+                String elegido = items[item]+"";
+                Toast.makeText(elContextoDeLaActividadEnLaQueSeEncuentraElAdapterDeMiRV, items[item], Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }
+

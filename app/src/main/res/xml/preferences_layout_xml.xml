@@ -26,16 +26,7 @@
             android:key="opcion3"
             android:summary="Esta es la descripcion de la preferencia que aparece debajo de su titulo"
             android:title="Preferencia de lista, elige un elemento" />
-        <!-- Con esto se añade una lista multiseleccionable
-        Para ello debe existir en Recursos un XML con array de strings,
-        para las entries y los entryValues-->
-        <MultiSelectListPreference
-            android:dialogTitle="Indicar Pais"
-            android:entries="@array/paises"
-            android:entryValues="@array/codpaises"
-            android:key="opcion4"
-            android:summary="Esta es la descripcion de la preferencia que aparece debajo de su titulo"
-            android:title="Preferencia de multilista, elige varios elementos:" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

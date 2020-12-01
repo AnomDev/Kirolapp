@@ -95,6 +95,28 @@ public class EjercicioSQLITE extends SQLiteOpenHelper {
         disconnect();
     }
 
+    public void cambiarNocturno(Ejercicio ejercicioCambiadoNocturno) {
+        connect();
+        //Aquí estamos creando el método que nos permita borrar uno de los ejercicios que existen sabiendo su ID
+
+        String[] interrogantesdelwhere = {ejercicioCambiadoNocturno.getId()+""};
+        ContentValues datosRegistroModificado = new ContentValues();
+        datosRegistroModificado.put("nocturno", ejercicioCambiadoNocturno.isNocturno());
+
+        mibbdd.update("TABLA_EJERCICIOS", datosRegistroModificado, "id=?", interrogantesdelwhere);
+
+        disconnect();
+    }
+
+/*
+UPDATE TABLA_EJERCICIOS
+SET NOCTURNO = TRU
+WHERE sitio = 'La plaza' AND fecha="23423424" AND distancio > 234;
+
+
+
+
+ */
 
     // Hacemos una consulta a la base de datos para que nos de todas las filas de la tabla ejercicios
     // Como cada fila es "un ejercicio", y va a traernos varias filass (varios ejercicios), los meteremos todos en una
