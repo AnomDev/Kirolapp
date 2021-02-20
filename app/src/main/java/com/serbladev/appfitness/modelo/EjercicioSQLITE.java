@@ -79,6 +79,7 @@ public class EjercicioSQLITE extends SQLiteOpenHelper {
         //Esta es la manera de llevar a código un booleano
         if (ejercicioNuevo.isNocturno()) {
             valores.put("nocturno", 1);
+
         } else {
             valores.put("nocturno", 0);
         }
@@ -97,8 +98,7 @@ public class EjercicioSQLITE extends SQLiteOpenHelper {
 
     public void cambiarNocturno(Ejercicio ejercicioCambiadoNocturno) {
         connect();
-        //Aquí estamos creando el método que nos permita borrar uno de los ejercicios que existen sabiendo su ID
-
+        //Aquí estamos cambiando de un ejercicio que es Diurno a uno que es nocturno. Al revés no lo hace.
         String[] interrogantesdelwhere = {ejercicioCambiadoNocturno.getId()+""};
         ContentValues datosRegistroModificado = new ContentValues();
         datosRegistroModificado.put("nocturno", ejercicioCambiadoNocturno.isNocturno());

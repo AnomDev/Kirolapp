@@ -29,17 +29,17 @@
 
 
     <!-- -->
-        <string-array name="listaPlanetas">
-            <item>Mercurio</item>
-            <item>Venus</item>
-            <item>Tierra</item>
-            <item>Marte</item>
-            <item>Jupiter</item>
-            <item>Saturno</item>
-            <item>Urano</item>
-            <item>Neptuno</item>
+        <string-array name="listaEjercicios">
+            <item>Senderismo</item>
+            <item>Ciclismo</item>
+            <item>Natación</item>
+            <item>Skeleton</item>
+            <item>Marcha alpina</item>
+            <item>Snowboard</item>
+            <item>Vela</item>
+            <item>Maratón</item>
         </string-array>
-        <string-array name="idPlanetas">
+        <string-array name="idEjercicios">
             <item>1</item>
             <item>2</item>
             <item>3</item>

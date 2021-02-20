@@ -37,10 +37,14 @@ public class ListaActivity extends AppCompatActivity {
    private  MiRecyclerAdapterParaElRecyclerViewDeEjercicios miAdaptador;
     //Para poder usar el contexto de mi ListaActivity fuera de ella usamos esto<:
    private  Activity yomismo;
+   public static boolean esdenoche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         yomismo = this;
         //Con esto construimos el objeto "vistas".
         vistas = ActivityListaBinding.inflate(getLayoutInflater());
@@ -90,6 +94,21 @@ public class ListaActivity extends AppCompatActivity {
          Intent i = new Intent(ListaActivity.this, clase);
          startActivity(i);
      }*/
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Aquí vamos a cambiar el tema de la app a modo noche (o no) en función de si hemos activado dicha opción en las preferencias.
+        esdenoche = MisPreferencias.leerPreferenciasDeUsuarioModoNoche(this);
+        if (esdenoche == true){
+            setTheme(R.style.AppThemeNightMode);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+        vistas.rvWorkoutList.setAdapter(miAdaptador);
+    }
+
     public void onNavigation(View view) {
 
         if (view.getId() == R.id.btAddWorkout) {
@@ -112,6 +131,7 @@ public class ListaActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Ejercicio ejercicioNuevo;
         // por si acaso lo ponermos bonito aunque solo puede llegar aqui volviendo desde alta
         if (requestCode == 34353) {  // si el intent original fue hacia alta
             if (resultCode == RESULT_OK) {
@@ -123,6 +143,10 @@ public class ListaActivity extends AppCompatActivity {
             //    datos.add(ejercicioCreadoDesdeJson);
                 EjercicioSQLITE bbdd = new EjercicioSQLITE(this,"BaseDatosEjercicios", null, 1);
                 arrayListDeEjercicios = bbdd.leerEjercicios();
+
+               //TODO: Aquí cuando lee el nuevo ejercicio que se ha creado, pretendía coger sólo el dato de si is Nocturno y en función de ello
+                // TODO: decirle que no mostrara la imágen. Sobra decir que no lo he conseguido xD
+
                 //recyadapter.notifyDataSetChanged(); //Aqui avisamos al adapter que tiene datos nuevos y que refresque el recyclerView.
                 miAdaptador = new MiRecyclerAdapterParaElRecyclerViewDeEjercicios(arrayListDeEjercicios, this);
                 vistas.rvWorkoutList.setAdapter(miAdaptador);

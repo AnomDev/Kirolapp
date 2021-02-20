@@ -2,12 +2,14 @@ package com.serbladev.appfitness.actividades;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.serbladev.appfitness.R;
@@ -49,7 +51,20 @@ public class AltaActivity extends AppCompatActivity {
                 String date = vistas.tietDate.getText().toString();
                 String distance = vistas.tietDistance.getText().toString();
                 String workoutType = (String) vistas.spWorkoutTypes.getSelectedItem(); //Aquí hay que hacer un casting porque le pido un String y él me está devolviendo un objeto.
-                boolean nightWorkout = vistas.swNightWorkout.isChecked();
+                //TODO: Esto es lo que he hecho para intentar "encender" o no el IV de Nocturno.
+                //TODO: Por ahora aquí ya se lleva a la otra pantalla el toast, es un avance xD
+                boolean nightWorkout;
+                if (vistas.swNightWorkout.isChecked()) {
+                    nightWorkout = true;
+                    Toast.makeText(getApplicationContext(), "¡Activando visión nocturna!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    nightWorkout = false;
+                    //TODO: Aqui creo que me estoy perdiendo =)
+
+                    //   ContextCompat.getDrawable(AltaActivity.this, R.drawable.ic_baseline_nights_stay_24);
+                    Toast.makeText(getApplicationContext(), "Me encanta el olor del napalm por la mañana", Toast.LENGTH_SHORT).show();
+                }
 
                 //Aquí creamos un nuevo ejercicio y le pasamos lo datos que hemos obtenido
                 Ejercicio newWorkout = new Ejercicio(0, nombreNuevamente, date, workoutType, Double.parseDouble(distance), nightWorkout);

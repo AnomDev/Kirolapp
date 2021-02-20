@@ -2,31 +2,34 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Se separan las preferencias por categorias, con PreferenceCategory -->
-    <PreferenceCategory android:title="Titulo categoria 1">
+    <PreferenceCategory android:title="Preferencias de pantalla">
         <!-- Con esto se añade un ChekBox -->
         <CheckBoxPreference
-            android:key="opcion1"
-            android:summary="Esta es la descripcion de la preferencia que aparece debajo de su titulo"
-            android:title="Preferencia de checkbox, haz check:" />
-        <!-- Con esto se añade un texto editable -->
-        <EditTextPreference
-            android:dialogTitle="Introduce valor"
-            android:key="opcion2"
-            android:title="Preferencia de texto, pincha aqui y escribe:" />
+            android:key="opcion_noche"
+            android:summary="Actívalo para tener un estilo y unos colores más oscuros en Kirolapp"
+            android:title="Modo noche" />
+
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Categoria 2">
+    <PreferenceCategory android:title="Preferencias de la aplicación">
         <!-- Con esto se añade una lista seleccionable
         Para ello debe existir en Recursos un XML con array de strings,
         para las entries y los entryValues-->
         <ListPreference
-            android:dialogTitle="Indicar Planeta"
-            android:entries="@array/listaPlanetas"
-            android:entryValues="@array/idPlanetas"
+            android:dialogTitle="Indicar tipo de ejercicio"
+            android:entries="@array/listaEjercicios"
+            android:entryValues="@array/idEjercicios"
             android:key="opcion3"
-            android:summary="Esta es la descripcion de la preferencia que aparece debajo de su titulo"
-            android:title="Preferencia de lista, elige un elemento" />
+            android:summary="Tu Ejercicio favorito será el que aparezca de forma predefinida cada vez que crees un ejercicio nuevo"
+            android:title="Escoge tu ejercicio favorito" />
 
     </PreferenceCategory>
 
+    <PreferenceCategory >
+        <!-- Con esto se añade un texto editable -->
+        <EditTextPreference
+            android:dialogTitle="Exprésate"
+            android:key="opcion2"
+            android:title="Escribe aquí lo que quieras decirnos" />
+    </PreferenceCategory>
 </PreferenceScreen>

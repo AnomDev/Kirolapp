@@ -9,6 +9,6 @@
     <color name="fondoLayout">#e2f8ff</color>
     <color name="fondoRecyclerItem">#a8d6ec</color>
     <color name="fondoRecycler">#dfdfdf</color>
-
-
+    <color name="fondoeoscuro">#1B1818</color>
+    <color name="fondoeoscuroseleccionado">#3E3939</color>
 </resources>
